@@ -47,7 +47,9 @@ public class PlayerMovement : MonoBehaviour
 		else {
 			grounded = false;
 		}
-		
+
+		transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
 	}
 	
 	void FixedUpdate() {

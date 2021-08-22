@@ -39,7 +39,7 @@ public class SlimeIA : MonoBehaviour
             direita = false;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, player.transform.position.y, 0), speed * Time.deltaTime);
         //Faz ESSE transform seguir em direção ao transform cujo o transform player pegou as caracteristicas
         //Mas em vez de só teleportar para o local ele faz isso aos poucos e na velocidade de SPEED
 
