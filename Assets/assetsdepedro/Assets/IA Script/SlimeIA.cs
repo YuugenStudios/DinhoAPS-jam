@@ -6,7 +6,7 @@ public class SlimeIA : MonoBehaviour
 {
     [SerializeField]
     float speed, life; // Primeira variavel é a velocidade do slime e a segunda é a vida
-    [SerializeField]
+    [HideInInspector]
     GameObject player; // Aqui vai o player pra a I.A conseguir localizar ele... 
 
     bool direita;
