@@ -8,15 +8,17 @@ public class PlayerMovement : MonoBehaviour
 	public float walkSpeed = 6;
 	public float jumpForce = 220;
 	public LayerMask groundedMask;
-	
-	// System vars
-	bool grounded;
+    private bool facingRight;
+
+    // System vars
+    bool grounded;
 	Vector3 moveAmount;
 	Vector3 smoothMoveVelocity;
 	Rigidbody rigidbody;
 	
 	
 	void Awake() {
+        facingRight = true;
 		rigidbody = GetComponent<Rigidbody> ();
 	}
 	
@@ -26,9 +28,10 @@ public class PlayerMovement : MonoBehaviour
 		float inputX = Input.GetAxisRaw("Horizontal");
 		Vector3 targetMoveAmount = new Vector3 (inputX * walkSpeed,0,0);
 		moveAmount = Vector3.SmoothDamp(moveAmount,targetMoveAmount,ref smoothMoveVelocity,.15f);
-		
-		// Jump
-		if (Input.GetButtonDown("Jump")) {
+        Flip(inputX);
+
+        // Jump
+        if (Input.GetButtonDown("Jump")) {
 			if (grounded) {
 				rigidbody.AddForce(transform.up * jumpForce);
 			}
@@ -52,4 +55,15 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 localMove = transform.TransformDirection(moveAmount) * Time.fixedDeltaTime;
 		rigidbody.MovePosition(rigidbody.position + localMove);
 	}
+
+    void Flip(float inputX) // Flipping for the wrong direction! Need to adjust.
+    {
+        if (inputX > 0 && !facingRight || inputX < 0 && facingRight)
+        {
+            facingRight = !facingRight;
+            Vector3 scalePlayer = transform.localScale;
+            scalePlayer.x *= -1;
+            transform.localScale = scalePlayer;
+        }
+    }
 }
