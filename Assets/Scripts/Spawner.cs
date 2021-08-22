@@ -4,28 +4,32 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] Transform[] spawnerPoints;
     [SerializeField] GameObject[] enemyPrefabs;
 
     [SerializeField] int enemiesPerWave, enemiesPerWaveMultiply, enemyInstantiate;
     public int activeEnemies, enemiesToWin;
     [SerializeField] float timeBetweenSpawn, timeToStart;
-    int enemyPointIndexArray, enemyIndexArray;
+    int enemyIndexArray;
 
     //externals
     void Start() {
         InvokeRepeating("EnemySpawn", timeToStart, timeBetweenSpawn);
     }
 
-    void Update() {
-    }
-
     void EnemySpawn() {
         if (activeEnemies <= enemiesPerWave) {
-            enemyPointIndexArray = Random.Range(0, spawnerPoints.Length);
+            int enemyDir = Random.Range(0, 2);
             enemyIndexArray = Random.Range(0, enemyPrefabs.Length);
                 
-            Instantiate(enemyPrefabs[enemyIndexArray], spawnerPoints[enemyPointIndexArray].transform.position, Quaternion.identity);
+            var enemy = Instantiate(enemyPrefabs[enemyIndexArray], Vector3.zero, Quaternion.identity);
+            if (enemyDir == 1)
+            {
+                enemy.transform.rotation = Quaternion.Euler(0, 0, 90);
+            }
+            else
+            {
+                enemy.transform.rotation = Quaternion.Euler(0, 0,-90);
+            }
             activeEnemies++;
             enemyInstantiate++;
         }

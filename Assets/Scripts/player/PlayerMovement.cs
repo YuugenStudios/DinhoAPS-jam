@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 	Vector3 moveAmount;
 	Vector3 smoothMoveVelocity;
 	Rigidbody rigidbody;
+
+	[SerializeField] GameObject attack;
 	
 	
 	void Awake() {
@@ -31,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         Flip(inputX);
 
         // Jump
-        if (Input.GetButtonDown("Jump")) {
+        if (Input.GetKeyDown(KeyCode.Z)) {
 			if (grounded) {
 				rigidbody.AddForce(transform.up * jumpForce);
 			}
@@ -41,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 		Ray ray = new Ray(transform.position, -transform.up);
 		RaycastHit hit;
 		
-		if (Physics.Raycast(ray, out hit, 1 + .1f, groundedMask)) {
+		if (Physics.Raycast(ray, out hit, 1.4f, groundedMask)) {
 			grounded = true;
 		}
 		else {
@@ -50,6 +52,11 @@ public class PlayerMovement : MonoBehaviour
 
 		transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			attack.SetActive(true);
+			attack.GetComponent<Animator>().SetTrigger("punch");
+		}
 	}
 	
 	void FixedUpdate() {
