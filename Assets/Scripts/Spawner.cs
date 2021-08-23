@@ -17,38 +17,23 @@ public class Spawner : MonoBehaviour
     }
 
     void EnemySpawn() {
-        if (activeEnemies <= enemiesPerWave) {
-            int enemyDir = Random.Range(0, 2);
-            enemyIndexArray = Random.Range(0, enemyPrefabs.Length);
-                
-            var enemy = Instantiate(enemyPrefabs[enemyIndexArray], Vector3.zero, Quaternion.identity);
-            if (enemyDir == 1)
-            {
-                enemy.transform.rotation = Quaternion.Euler(0, 0, 90);
+        if(!pauseController.FindObjectOfType<pauseController>().isPaused){
+            if (activeEnemies <= enemiesPerWave) {
+                int enemyDir = Random.Range(0, 2);
+                enemyIndexArray = Random.Range(0, enemyPrefabs.Length);
+                    
+                var enemy = Instantiate(enemyPrefabs[enemyIndexArray], Vector3.zero, Quaternion.identity);
+                if (enemyDir == 1)
+                {
+                    enemy.transform.rotation = Quaternion.Euler(0, 0, 90);
+                }
+                else
+                {
+                    enemy.transform.rotation = Quaternion.Euler(0, 0,-90);
+                }
+                activeEnemies++;
+                enemyInstantiate++;
             }
-            else
-            {
-                enemy.transform.rotation = Quaternion.Euler(0, 0,-90);
-            }
-            activeEnemies++;
-            enemyInstantiate++;
         }
-
-        //switch (_score.virusKilled) {
-        //    case 5:
-        //        enemiesPerWave += enemiesPerWaveMultiply;
-        //        break;
-
-        //    case 10:
-        //        enemiesPerWave += enemiesPerWaveMultiply;
-        //        break;
-
-        //    case 15:
-        //        enemiesPerWave += enemiesPerWaveMultiply;
-        //        break;
-        //    case 20:
-        //        FindObjectOfType<CallScene>().callScene("WonScreen");
-        //        break;
-        //}
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DanoReceber : MonoBehaviour
 {
@@ -17,7 +18,7 @@ void Update() {
 if(playerLifeBar.fillAmount<=0.04f)
 {
     morreu = true;
-    print("FALICEU JUMENTO");
+    SceneManager.LoadScene("Game");
 }
 
 

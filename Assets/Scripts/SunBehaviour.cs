@@ -40,10 +40,12 @@ public class SunBehaviour : MonoBehaviour
     }
 
     void RotateSun() {
-        if(canRotate)
-        transform.RotateAround(planet.position, sunDirection, sunVelocity);
-        else if(!canRotate) {
-            transform.RotateAround(planet.position, sunDirection, sunVelocity * slowdowRate);
+        if(!pauseController.FindObjectOfType<pauseController>().isPaused){
+            if(canRotate)
+            transform.RotateAround(planet.position, sunDirection, sunVelocity);
+            else if(!canRotate) {
+                transform.RotateAround(planet.position, sunDirection, sunVelocity * slowdowRate);
+            }
         }
     }
     

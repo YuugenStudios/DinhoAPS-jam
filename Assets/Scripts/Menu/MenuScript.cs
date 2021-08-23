@@ -39,8 +39,8 @@ public class MenuScript : MonoBehaviour
         Debug.Log("Mouse is over GameObject.");
     }
 
-    public void StartGameScene() {
-        SceneManager.LoadScene("Game");
+    public void StartGameScene(string sceneName) {
+        SceneManager.LoadScene(sceneName);
     }
 }
 

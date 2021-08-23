@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (Input.GetKeyDown(KeyCode.Z)) {
 			if (grounded) {
+				print("pulou");
 				rigidbody.AddForce(transform.up * jumpForce);
 			}
 		}
@@ -43,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 		Ray ray = new Ray(transform.position, -transform.up);
 		RaycastHit hit;
 		
-		if (Physics.Raycast(ray, out hit, 1.4f, groundedMask)) {
+		if (Physics.Raycast(ray, out hit, 2.2f, groundedMask)) {
 			grounded = true;
 		}
 		else {

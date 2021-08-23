@@ -9,6 +9,6 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(Vector3.forward * speed);
+        transform.Rotate(Vector3.forward * speed * Time.deltaTime);
     }
 }
