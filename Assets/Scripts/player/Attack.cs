@@ -11,10 +11,8 @@ public class Attack : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        
-        if (other.gameObject.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
-            
             other.GetComponent<EnemyHealth>().takeDamage();
         }    
     }
