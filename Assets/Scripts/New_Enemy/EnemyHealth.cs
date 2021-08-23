@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+   
     int health = 3;
     public bool socado;
+    public GameObject impact;
     public void takeDamage()
     {
         
@@ -16,13 +18,14 @@ public class EnemyHealth : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
+   
    private void OnTriggerEnter(Collider other) {
       
         if(other.gameObject.tag == "Soco")
         {
-            print("socado");
             socado = true;
+            Instantiate(impact, other.transform.position, other.transform.rotation);
+            
         }
        
     }

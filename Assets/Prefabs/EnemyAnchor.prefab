@@ -177,3 +177,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socado: 0
+  impact: {fileID: 7852101138452092470, guid: 54db87aed0f8936429fa393ecf65b155, type: 3}
