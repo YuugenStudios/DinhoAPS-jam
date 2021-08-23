@@ -8,8 +8,9 @@ public class PlayerMovement : MonoBehaviour
 	public float walkSpeed = 6;
 	public float jumpForce = 220;
 	public LayerMask groundedMask;
-    private bool facingRight;
-
+              private bool facingRight;
+              [SerializeField] AudioSource soco, pulo;
+ 
     // System vars
     bool grounded;
 	Vector3 moveAmount;
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 			if (grounded) {
 				print("pulou");
 				rigidbody.AddForce(transform.up * jumpForce);
+                                                          pulo.Play();
 			}
 		}
 		
@@ -55,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.X))
 		{
+			soco.Play();
 			attack.SetActive(true);
 			attack.GetComponent<Animator>().SetTrigger("punch");
 		}

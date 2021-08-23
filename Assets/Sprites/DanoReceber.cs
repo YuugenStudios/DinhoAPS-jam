@@ -8,6 +8,7 @@ public class DanoReceber : MonoBehaviour
 {
     bool morreu = false;
     public Image playerLifeBar;
+
     void Start()
     {
         
@@ -18,7 +19,7 @@ void Update() {
 if(playerLifeBar.fillAmount<=0.04f)
 {
     morreu = true;
-    SceneManager.LoadScene("Game");
+    SceneManager.LoadScene("GameOver");
 }
 
 
@@ -33,8 +34,7 @@ if(playerLifeBar.fillAmount<=0.04f)
         }
         else if(other.gameObject.tag == "Enemy"  )
         {
-            
-             playerLifeBar.fillAmount -= 0.05f;
+             playerLifeBar.fillAmount -= 0.1f;
            
         }
     }

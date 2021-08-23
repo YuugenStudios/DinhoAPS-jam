@@ -50,7 +50,7 @@ public class plantBehaviour : MonoBehaviour
             if(clorofilaEnergy >0) {
                 clorofilaEnergy -= valorToAdd;
             } else if( clorofilaEnergy <=0) {
-              SceneManager.LoadScene("Game");
+              SceneManager.LoadScene("GameOver");
             }
         }
     }
