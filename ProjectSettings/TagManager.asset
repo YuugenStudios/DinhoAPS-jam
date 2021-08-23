@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Slimer
   - Planet
+  - Soco
   layers:
   - Default
   - TransparentFX

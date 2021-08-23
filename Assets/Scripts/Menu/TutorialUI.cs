@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TutorialUI : MonoBehaviour
 {
     [SerializeField] GameObject tutorial;
+    [SerializeField] GameObject Interface;
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class TutorialUI : MonoBehaviour
 
     public void NextTutorial() {
         tutorial.SetActive(false);
+        Interface.SetActive(true);
         Time.timeScale = 1;
     }
 }
