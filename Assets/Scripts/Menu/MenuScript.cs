@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
+    [SerializeField] public Button playbutton;
     [SerializeField] private Button volumeButton;
     public Sprite volumeOn, volumeOff;
+    public Animator animator;
+
+    [SerializeField] Image tutorial;
 
     private void Awake() {
         AudioListener.volume = 1;
@@ -29,6 +32,15 @@ public class MenuScript : MonoBehaviour
 
     public void ExitGame() {
         Application.Quit();
+    }
+
+    public void OnMouseOver() {
+        animator.Play("AnimationPlay");
+        Debug.Log("Mouse is over GameObject.");
+    }
+
+    public void StartGameScene() {
+        SceneManager.LoadScene("Game");
     }
 }
 
