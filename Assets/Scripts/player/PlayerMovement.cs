@@ -5,58 +5,51 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // public vars
-	public float walkSpeed = 6;
+	[SerializeField] float walkSpeed = 6, walkMultipler = 10;
 	public float jumpForce = 220;
 	public LayerMask groundedMask;
-              private bool facingRight;
-              [SerializeField] AudioSource soco, pulo;
+    private bool facingRight;
+    [SerializeField] AudioSource soco, pulo;
  
     // System vars
     bool grounded;
-	Vector3 moveAmount;
+	Vector3 moveAmount, targetMoveAmount;
 	Vector3 smoothMoveVelocity;
-	Rigidbody rigidbody;
+	public Rigidbody rb;
 
 	[SerializeField] GameObject attack;
-	
+
+	//externals
+	private PlayerJump _playerJump;
 	
 	void Awake() {
         facingRight = true;
-		rigidbody = GetComponent<Rigidbody> ();
+		rb = GetComponent<Rigidbody>();
+		_playerJump = FindObjectOfType<PlayerJump>();
 	}
 	
 	void Update() {
-		
+
+		print(walkSpeed);
 		// Calculate movement:
 		float inputX = Input.GetAxisRaw("Horizontal");
-		Vector3 targetMoveAmount = new Vector3 (inputX * walkSpeed,0,0);
+
+		if(Input.GetKey(KeyCode.LeftShift) && inputX != 0) {
+			Run(inputX);
+		}
+
+		targetMoveAmount = new Vector3 (inputX * walkSpeed,0,0);
 		moveAmount = Vector3.SmoothDamp(moveAmount,targetMoveAmount,ref smoothMoveVelocity,.15f);
         Flip(inputX);
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Z)) {
-			if (grounded) {
-				print("pulou");
-				rigidbody.AddForce(transform.up * jumpForce);
-                                                          pulo.Play();
-			}
-		}
-		
-		// Grounded check
-		Ray ray = new Ray(transform.position, -transform.up);
-		RaycastHit hit;
-		
-		if (Physics.Raycast(ray, out hit, 2.2f, groundedMask)) {
-			grounded = true;
-		}
-		else {
-			grounded = false;
+			_playerJump.Jump();
 		}
 
 		transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 
-		if (Input.GetKeyDown(KeyCode.X))
-		{
+		if (Input.GetKeyDown(KeyCode.X)) {
 			soco.Play();
 			attack.SetActive(true);
 			attack.GetComponent<Animator>().SetTrigger("punch");
@@ -64,19 +57,20 @@ public class PlayerMovement : MonoBehaviour
 	}
 	
 	void FixedUpdate() {
-		// Apply movement to rigidbody
 		Vector3 localMove = transform.TransformDirection(moveAmount) * Time.fixedDeltaTime;
-		rigidbody.MovePosition(rigidbody.position + localMove);
+		rb.MovePosition(rb.position + localMove);
 	}
 
-    void Flip(float inputX) // Flipping for the wrong direction! Need to adjust.
-    {
-        if (inputX > 0 && !facingRight || inputX < 0 && facingRight)
-        {
+    void Flip(float inputX) {
+        if (inputX > 0 && !facingRight || inputX < 0 && facingRight) {
             facingRight = !facingRight;
             Vector3 scalePlayer = transform.localScale;
             scalePlayer.x *= -1;
             transform.localScale = scalePlayer;
         }
+    }
+
+	void Run(float inputX) {
+		//rb.AddForce(transform.right * inputX * walkMultipler);
     }
 }

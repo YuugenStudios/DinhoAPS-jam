@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class plantBehaviour : MonoBehaviour
 {
-     [SerializeField] float cooldown;
+    [SerializeField] float cooldown;
     [SerializeField] int valorToAdd;
-    int clorofilaEnergy = 20;
+    public int clorofilaEnergy = 20;
     [SerializeField] TMP_Text clorofilaEnergyText;
 
     bool facingSun;
